@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import ch.aaap.assignment.Application;
-
 public class ApplicationTest {
 
   /* The system under test */
@@ -57,15 +55,15 @@ public class ApplicationTest {
   }
 
   @Test
-  public void returnsAmountOfPoliticalCommunitiesInDistict() {
+  public void returnsAmountOfPoliticalCommunitiesInDistrict() {
     assertEquals(
         14,
-        sut.getAmountOfPoliticalCommunitiesInDistict("101"),
+        sut.getAmountOfPoliticalCommunitiesInDistrict("101"),
         "Correct amount of political communities in in distric with number '101'");
 
     assertThrows(
         IllegalArgumentException.class,
-        () -> sut.getAmountOfPoliticalCommunitiesInDistict("9999"),
+        () -> sut.getAmountOfPoliticalCommunitiesInDistrict("9999"),
         "Expected IllegalArgumentException");
   }
 
