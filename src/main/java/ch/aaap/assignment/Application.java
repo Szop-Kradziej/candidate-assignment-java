@@ -1,9 +1,13 @@
 package ch.aaap.assignment;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import ch.aaap.assignment.helper.ModelInitializer;
+import ch.aaap.assignment.model.Canton;
+import ch.aaap.assignment.model.District;
 import ch.aaap.assignment.model.Model;
 import ch.aaap.assignment.raw.CSVPoliticalCommunity;
 import ch.aaap.assignment.raw.CSVPostalCommunity;
@@ -38,8 +42,26 @@ public class Application {
    * @return amount of political communities in given canton
    */
   public long getAmountOfPoliticalCommunitiesInCanton(String cantonCode) {
-    // TODO implementation
-    throw new RuntimeException("Not yet implemented");
+    if (!isProperCantonCode(cantonCode)) {
+      throw new IllegalArgumentException();
+    }
+
+    Set<String> districtsIds = model.getCantons().stream()
+        .filter(it -> it.getCode().equals(cantonCode))
+        .map(Canton::getDistrictsIds)
+        .flatMap(Collection::stream)
+        .collect(Collectors.toSet());
+
+    return model.getDistricts().stream()
+        .filter(it -> districtsIds.contains(it.getNumber()))
+        .map(District::getPoliticalCommunitiesIds)
+        .mapToLong(Collection::size)
+        .sum();
+  }
+
+  private boolean isProperCantonCode(String cantonCode) {
+    return model.getCantons().stream()
+        .anyMatch(it -> it.getCode().equals(cantonCode));
   }
 
   /**
