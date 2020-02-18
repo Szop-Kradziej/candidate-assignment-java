@@ -165,7 +165,13 @@ public class Application {
    * @return amount of political communities without postal communities
    */
   public long getAmountOfPoliticalCommunityWithoutPostalCommunities() {
-    // TODO implementation
-    throw new RuntimeException("Not yet implemented");
+    Set<String> politicalCommunitiesWithPostalCommunities = model.getPostalCommunities().stream()
+        .map(PostalCommunity::getPoliticalCommunitiesIds)
+        .flatMap(Collection::stream)
+        .collect(Collectors.toSet());
+
+    return model.getPoliticalCommunities().stream()
+        .filter(it -> !politicalCommunitiesWithPostalCommunities.contains(it.getNumber()))
+        .count();
   }
 }
