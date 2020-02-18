@@ -35,7 +35,7 @@ public class ModelInitializer {
     Map<String, District> districtsMap = new HashMap<>();
     Map<String, PoliticalCommunity> politicalCommunitiesMap = new HashMap<>();
 
-    for (CSVPoliticalCommunity rawPC: rawPoliticalCommunities) {
+    for (CSVPoliticalCommunity rawPC : rawPoliticalCommunities) {
       upsertCanton(rawPC, cantonsMap);
       upsertDistrict(rawPC, districtsMap);
       insertPoliticalCommunity(rawPC, politicalCommunitiesMap);
@@ -47,24 +47,24 @@ public class ModelInitializer {
   }
 
   private void upsertCanton(CSVPoliticalCommunity rawPC, Map<String, Canton> cantonsMap) {
-    if(cantonsMap.containsKey(rawPC.getCantonCode())) {
+    if (cantonsMap.containsKey(rawPC.getCantonCode())) {
       Canton curr = cantonsMap.get(rawPC.getCantonCode());
       curr.getDistrictsIds().add(rawPC.getDistrictNumber());
     } else {
       Set<String> districtsIds = new HashSet<>();
       districtsIds.add(rawPC.getDistrictNumber());
 
-      Canton newCanton= new CantonImpl(
-              rawPC.getCantonCode(),
-              rawPC.getCantonName(),
-              districtsIds);
+      Canton newCanton = new CantonImpl(
+          rawPC.getCantonCode(),
+          rawPC.getCantonName(),
+          districtsIds);
 
       cantonsMap.put(rawPC.getCantonCode(), newCanton);
     }
   }
 
   private void upsertDistrict(CSVPoliticalCommunity rawPC, Map<String, District> districtsMap) {
-    if(districtsMap.containsKey(rawPC.getDistrictNumber())) {
+    if (districtsMap.containsKey(rawPC.getDistrictNumber())) {
       District curr = districtsMap.get(rawPC.getDistrictNumber());
       curr.getPoliticalCommunitiesIds().add(rawPC.getNumber());
     } else {
@@ -72,27 +72,27 @@ public class ModelInitializer {
       politicalCommunitiesIds.add(rawPC.getNumber());
 
       District newDistrict = new DistrictImpl(
-              rawPC.getDistrictNumber(),
-              rawPC.getDistrictName(),
-              rawPC.getCantonCode(),
-              politicalCommunitiesIds);
+          rawPC.getDistrictNumber(),
+          rawPC.getDistrictName(),
+          rawPC.getCantonCode(),
+          politicalCommunitiesIds);
 
       districtsMap.put(rawPC.getDistrictNumber(), newDistrict);
     }
   }
 
   private void insertPoliticalCommunity(CSVPoliticalCommunity rawPC, Map<String, PoliticalCommunity> politicalCommunitiesMap) {
-    if(politicalCommunitiesMap.containsKey(rawPC.getNumber())) {
+    if (politicalCommunitiesMap.containsKey(rawPC.getNumber())) {
       //TODO: Change to Slf4j warn
       System.out.println("The same political communities");
     } else {
       PoliticalCommunity newPoliticalCommunity = new PoliticalCommunityImpl(
-              rawPC.getNumber(),
-              rawPC.getName(),
-              rawPC.getShortName(),
-              rawPC.getLastUpdate(),
-              rawPC.getDistrictNumber(),
-              new HashSet<>());
+          rawPC.getNumber(),
+          rawPC.getName(),
+          rawPC.getShortName(),
+          rawPC.getLastUpdate(),
+          rawPC.getDistrictNumber(),
+          new HashSet<>());
 
       politicalCommunitiesMap.put(rawPC.getNumber(), newPoliticalCommunity);
     }
@@ -112,10 +112,10 @@ public class ModelInitializer {
         politicalCommunitiesIds.add(row.getPoliticalCommunityNumber());
 
         PostalCommunity newPostalCommunity = new PostalCommunityImpl(
-                row.getZipCode(),
-                row.getZipCodeAddition(),
-                row.getName(),
-                politicalCommunitiesIds);
+            row.getZipCode(),
+            row.getZipCodeAddition(),
+            row.getName(),
+            politicalCommunitiesIds);
 
         map.put(key, newPostalCommunity);
       }
