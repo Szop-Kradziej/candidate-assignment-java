@@ -2,13 +2,12 @@ package ch.aaap.assignment;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import ch.aaap.assignment.helper.ModelInitializer;
-import ch.aaap.assignment.model.Canton;
-import ch.aaap.assignment.model.District;
-import ch.aaap.assignment.model.Model;
+import ch.aaap.assignment.model.*;
 import ch.aaap.assignment.raw.CSVPoliticalCommunity;
 import ch.aaap.assignment.raw.CSVPostalCommunity;
 import ch.aaap.assignment.raw.CSVUtil;
@@ -106,8 +105,30 @@ public class Application {
    * @return district that belongs to specified zip code
    */
   public Set<String> getDistrictsForZipCode(String zipCode) {
-    // TODO implementation
-    throw new RuntimeException("Not yet implemented");
+    if (!isProperZipCode(zipCode)) {
+      return new HashSet<>();
+    }
+
+    Set<String> politicalCommunitiesIds = model.getPostalCommunities().stream()
+        .filter(it -> it.getZipCode().equals(zipCode))
+        .map(PostalCommunity::getPoliticalCommunitiesIds)
+        .flatMap(Collection::stream)
+        .collect(Collectors.toSet());
+
+    Set<String> districtsIds = model.getPoliticalCommunities().stream()
+        .filter(it -> politicalCommunitiesIds.contains(it.getNumber()))
+        .map(PoliticalCommunity::getDistrictId)
+        .collect(Collectors.toSet());
+
+    return model.getDistricts().stream()
+        .filter(it -> districtsIds.contains(it.getNumber()))
+        .map(District::getName)
+        .collect(Collectors.toSet());
+  }
+
+  private boolean isProperZipCode(String zipCode) {
+    return model.getPostalCommunities().stream()
+        .anyMatch(it -> it.getZipCode().equals(zipCode));
   }
 
   /**
