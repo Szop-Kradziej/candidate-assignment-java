@@ -69,8 +69,15 @@ public class Application {
    * @return amount of districts in given canton
    */
   public long getAmountOfDistrictsInCanton(String cantonCode) {
-    // TODO implementation
-    throw new RuntimeException("Not yet implemented");
+    if(!isProperCantonCode(cantonCode)) {
+      throw new IllegalArgumentException();
+    }
+
+    return model.getCantons().stream()
+        .filter(it -> it.getCode().equals(cantonCode))
+        .map(Canton::getDistrictsIds)
+        .mapToLong(Collection::size)
+        .sum();
   }
 
   /**
