@@ -3,6 +3,7 @@ package ch.aaap.assignment;
 import java.time.LocalDate;
 import java.util.Set;
 
+import ch.aaap.assignment.helper.ModelInitializer;
 import ch.aaap.assignment.model.Model;
 import ch.aaap.assignment.raw.CSVPoliticalCommunity;
 import ch.aaap.assignment.raw.CSVPostalCommunity;
@@ -25,8 +26,7 @@ public class Application {
     Set<CSVPoliticalCommunity> politicalCommunities = CSVUtil.getPoliticalCommunities();
     Set<CSVPostalCommunity> postalCommunities = CSVUtil.getPostalCommunities();
 
-    // TODO implementation
-    throw new RuntimeException("Not yet implemented");
+    model = new ModelInitializer(politicalCommunities, postalCommunities).init();
   }
   /** @return model */
   public Model getModel() {
@@ -85,7 +85,6 @@ public class Application {
    * @return amount of canton
    */
   public long getAmountOfCantons() {
-    // TODO implementation
     return model.getCantons().size();
   }
 
