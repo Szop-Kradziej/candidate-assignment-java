@@ -69,7 +69,7 @@ public class Application {
    * @return amount of districts in given canton
    */
   public long getAmountOfDistrictsInCanton(String cantonCode) {
-    if(!isProperCantonCode(cantonCode)) {
+    if (!isProperCantonCode(cantonCode)) {
       throw new IllegalArgumentException();
     }
 
@@ -85,7 +85,7 @@ public class Application {
    * @return amount of districts in given canton
    */
   public long getAmountOfPoliticalCommunitiesInDistrict(String districtNumber) {
-    if(!isProperDistrictNumber(districtNumber)) {
+    if (!isProperDistrictNumber(districtNumber)) {
       throw new IllegalArgumentException();
     }
 
@@ -137,7 +137,7 @@ public class Application {
    * @return lastUpdate of the political community by a given postal community name
    */
   public LocalDate getLastUpdateOfPoliticalCommunityByPostalCommunityName(String postalCommunityName) {
-    Set<String> politicalCommunitiesIds =  model.getPostalCommunities().stream()
+    Set<String> politicalCommunitiesIds = model.getPostalCommunities().stream()
         .filter(it -> it.getName().equals(postalCommunityName))
         .map(PostalCommunity::getPoliticalCommunitiesIds)
         .flatMap(Collection::stream)
