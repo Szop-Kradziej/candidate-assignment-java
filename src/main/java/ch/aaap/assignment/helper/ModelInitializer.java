@@ -91,8 +91,7 @@ public class ModelInitializer {
           rawPC.getName(),
           rawPC.getShortName(),
           rawPC.getLastUpdate(),
-          rawPC.getDistrictNumber(),
-          new HashSet<>());
+          rawPC.getDistrictNumber());
 
       politicalCommunitiesMap.put(rawPC.getNumber(), newPoliticalCommunity);
     }
