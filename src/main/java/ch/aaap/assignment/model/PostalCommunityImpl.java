@@ -9,8 +9,8 @@ import java.util.Set;
 @AllArgsConstructor
 public class PostalCommunityImpl implements PostalCommunity {
 
-    private final String zipCode;
-    private final String zipCodeAddition;
-    private final String name;
-    private final Set<String> politicalCommunitiesIds;
+  private final String zipCode;
+  private final String zipCodeAddition;
+  private final String name;
+  private final Set<String> politicalCommunitiesIds;
 }

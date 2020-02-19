@@ -25,14 +25,19 @@ public class Application {
     new Application();
   }
 
-  /** Reads the CSVs and initializes a in memory model */
+  /**
+   * Reads the CSVs and initializes a in memory model
+   */
   private void initModel() {
     Set<CSVPoliticalCommunity> politicalCommunities = CSVUtil.getPoliticalCommunities();
     Set<CSVPostalCommunity> postalCommunities = CSVUtil.getPostalCommunities();
 
     model = new ModelInitializer(politicalCommunities, postalCommunities).init();
   }
-  /** @return model */
+
+  /**
+   * @return model
+   */
   public Model getModel() {
     return model;
   }
@@ -136,8 +141,9 @@ public class Application {
    * @param postalCommunityName of postal community
    * @return lastUpdate of the political community by a given postal community name
    */
-  public LocalDate getLastUpdateOfPoliticalCommunityByPostalCommunityName(String postalCommunityName) {
-    if(!isProperPostalCommunityName(postalCommunityName)) {
+  public LocalDate getLastUpdateOfPoliticalCommunityByPostalCommunityName(
+      String postalCommunityName) {
+    if (!isProperPostalCommunityName(postalCommunityName)) {
       throw new IllegalArgumentException();
     }
 

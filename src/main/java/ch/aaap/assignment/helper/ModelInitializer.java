@@ -18,7 +18,8 @@ public class ModelInitializer {
   private Set<PoliticalCommunity> politicalCommunities;
   private Set<PostalCommunity> postalCommunities;
 
-  public ModelInitializer(Set<CSVPoliticalCommunity> rawPoliticalCommunities, Set<CSVPostalCommunity> rawPostalCommunities) {
+  public ModelInitializer(Set<CSVPoliticalCommunity> rawPoliticalCommunities,
+      Set<CSVPostalCommunity> rawPostalCommunities) {
     this.rawPoliticalCommunities = rawPoliticalCommunities;
     this.rawPostalCommunities = rawPostalCommunities;
   }
@@ -81,7 +82,8 @@ public class ModelInitializer {
     }
   }
 
-  private void insertPoliticalCommunity(CSVPoliticalCommunity rawPC, Map<String, PoliticalCommunity> politicalCommunitiesMap) {
+  private void insertPoliticalCommunity(CSVPoliticalCommunity rawPC,
+      Map<String, PoliticalCommunity> politicalCommunitiesMap) {
     if (politicalCommunitiesMap.containsKey(rawPC.getNumber())) {
       System.out.println("The same political communities");
     } else {
