@@ -83,7 +83,6 @@ public class ModelInitializer {
 
   private void insertPoliticalCommunity(CSVPoliticalCommunity rawPC, Map<String, PoliticalCommunity> politicalCommunitiesMap) {
     if (politicalCommunitiesMap.containsKey(rawPC.getNumber())) {
-      //TODO: Change to Slf4j warn
       System.out.println("The same political communities");
     } else {
       PoliticalCommunity newPoliticalCommunity = new PoliticalCommunityImpl(
