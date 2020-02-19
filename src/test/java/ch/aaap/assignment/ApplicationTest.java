@@ -88,6 +88,11 @@ public class ApplicationTest {
         "2016-04-10",
         sut.getLastUpdateOfPoliticalCommunityByPostalCommunityName("Vergeletto").toString(),
         "Correct last update of political community by postal community name 'Vergeletto'");
+
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> sut.getLastUpdateOfPoliticalCommunityByPostalCommunityName("Los Angeles"),
+        "Expected IllegalArgumentException");
   }
 
   @Test

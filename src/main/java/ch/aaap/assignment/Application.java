@@ -137,6 +137,10 @@ public class Application {
    * @return lastUpdate of the political community by a given postal community name
    */
   public LocalDate getLastUpdateOfPoliticalCommunityByPostalCommunityName(String postalCommunityName) {
+    if(!isProperPostalCommunityName(postalCommunityName)) {
+      throw new IllegalArgumentException();
+    }
+
     Set<String> politicalCommunitiesIds = model.getPostalCommunities().stream()
         .filter(it -> it.getName().equals(postalCommunityName))
         .map(PostalCommunity::getPoliticalCommunitiesIds)
@@ -148,6 +152,11 @@ public class Application {
         .max(Comparator.comparing(PoliticalCommunity::getLastUpdate))
         .map(PoliticalCommunity::getLastUpdate)
         .orElseThrow(IllegalStateException::new);
+  }
+
+  private boolean isProperPostalCommunityName(String postalCommunityName) {
+    return model.getPostalCommunities().stream()
+        .anyMatch(it -> it.getName().equals(postalCommunityName));
   }
 
   /**
