@@ -1,0 +1,34 @@
+--------- GENERAL ---------
+1. Model
+
+a) Full relations in model look like:
+Canton <-OneToMany-> District <-OneToMany-> PoliticalCommunity <-ManyToMany-> PostalCommunity
+
+b) I implemented model analogically as if it will be JPA entities for DB tables.
+
+c) I thought about using objects instead of ids, but it seems like overkill (application code will be more elegant but init for Model will be more complicated and less readable).
+
+d) I cleaned up and removed unused relations.
+
+e) I thought about removing model's interfaces (there is exactly one implementation and it's hard to name classes properly), but I finally left it as it was.
+
+2. Postal Communities
+
+a) It seems to me that each postal community is defined by fields: zipCode + additionalZipCode + name and one postal community can have multiple political communities.
+
+b) I changed expected postal communities amount in testModel. 5633 is the number of rows in the file. According to a) there are only 4064 distinct postal communities in file.
+
+
+
+--------- OTHERS ---------
+
+1. Lombok - great I didn't have to add it on my own :)
+2. JavaDoc params - My IDE was making them with red warning because of name mismatch. I fixed it.
+3. In commit: c8497782 in test case: returnsCorrectLastUpdateOfMunicipalityByPostalCommunityName. It seems to me that this fail path assertion should stay and only method should be changed, because user can provide incorrect params. I added this assertion.
+
+
+
+--------- INTERESTING THINGS ---------
+
+1. Political and postal communities are quite complicated here in Switzerland!
+2. There is no canton that have the same name in all Swiss government languages, that's interesting.
